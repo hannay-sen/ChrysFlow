@@ -1,8 +1,8 @@
-# Chrysflow
+# ChrysFlow
 
 **Chrysos** (Greek for "gold") + **flow**: a currency tracker with a daily data pipeline behind it.
 
-**Live site:** https://hannay-sen.github.io/chrysflow/
+**Live site:** https://hannay-sen.github.io/ChrysFlow/
 
 Two parts in one repo:
 
