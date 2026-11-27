@@ -1,9 +1,13 @@
-# Currency Exchange Tracker
+# Chrysflow
+
+**Chrysos** (Greek for "gold") + **flow**: a currency tracker with a daily data pipeline behind it.
+
+**Live site:** https://hannay-sen.github.io/chrysflow/
 
 Two parts in one repo:
 
 1. **Web app** (React + Recharts): convert between currencies and see how a rate changed over time.
-2. **Data pipeline** (Python + SQL + DuckDB): collects daily exchange rates for about 30 currencies, cleans them, and builds analysis tables, automatically every weekday.
+2. **Data pipeline** (Python + SQL + DuckDB): collects daily exchange rates for 30 currencies, cleans them, and builds analysis tables automatically every weekday. It currently holds 22,000+ daily rates going back to January 2024.
 
 Data source: [Frankfurter API](https://frankfurter.dev), which publishes the European Central Bank's reference rates. Rates exist only for working days.
 
@@ -62,4 +66,4 @@ npm install
 npm run dev
 ```
 
-Built with React, Vite and Recharts.
+Built with React, Vite and Recharts. Deployed to GitHub Pages by `.github/workflows/deploy-site.yml` whenever the app code changes.
