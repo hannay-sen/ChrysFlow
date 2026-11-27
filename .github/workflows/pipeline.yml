@@ -1,0 +1,38 @@
+name: Daily exchange-rate pipeline
+
+on:
+  schedule:
+    - cron: "30 16 * * 1-5"   # weekdays 16:30 UTC, after the ECB publishes new rates
+  workflow_dispatch:           # lets you run it by hand from the Actions tab
+  push:
+    paths: ["pipeline/**", "tests/**", ".github/workflows/pipeline.yml"]
+
+permissions:
+  contents: write              # needed to commit the updated data back to the repo
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Run pipeline (extract, load, SQL transforms, data-quality checks)
+        run: python -m pipeline.run
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "Update exchange-rate data"
+          git push
